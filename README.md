@@ -82,21 +82,12 @@ Started neo4j (pid 13595). It is available at http://localhost:5474/
 create index on :User(id);
 ```
 
-6 - Levantar el archivo descargado
+6 - Levantar el set de datos
 
 Para eso debemos combinar los .txt porque originalmente viene partido
 ```
 C:\> copy in*.txt Combined.txt
 ```
-
-```
-:auto USING PERIODIC COMMIT 1000
-LOAD CSV FROM "file:///friends-000______.txt" as line FIELDTERMINATOR ":"
-MERGE (u1:User {id:line[0]})
-;
-```
-
-Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000... (Mint 19, Neo4j 4.0.3)
 
 *OJO:* Desde la UI tuve problema para poder levantar el archivo desde cualquier carpeta  y tuve que copiarlo en 
 
@@ -104,6 +95,21 @@ Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000..
 /var/lib/neo4j/import
 ```
 Se puede configurar desde el archivo config (/etc/neo4j/neo4j.conf). Hay que comentar la linea 'dbms.directories.import=import' y sacarle el comentario a la linea 'dbms.security.allow_csv_import_from_file_urls=true' para que permita importar desde cualquier lugar.
+
+```
+:auto USING PERIODIC COMMIT 1000
+LOAD CSV FROM "file:///friends-000______.txt" as line FIELDTERMINATOR ":"
+MERGE (u1:User {id:line[0]})
+WITH line[1] as id2
+WHERE id2 <> '' AND id2 <> 'private' AND id2 <> 'notfound'
+UNWIND split(id2,",") as id
+WITH distinct id
+MERGE (u2:User {id:id})
+CREATE (u1)-[:FRIEND_OF]->(u2);
+;
+```
+
+Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000... (Mint 19, Neo4j 4.0.3)
 
 7 - Ver que se cargaron los id ok
 
