@@ -38,12 +38,13 @@ Todas las pruebas fueron realizadas en una computadora personal con las siguient
 
 Sistema Operativo | CPU | Memoria | Espacio en Disco | Tipo de Volumen
 --- | --- | --- | --- |--- 
-Windows 10 | 301 | 283 | 290 | 286 
+Windows 10 x64 | Core(TM) i7-5500U @2.40 GHz | 8.00GB DDR3| 1TB | SATA III 
 
 ## Software
 
-1. Neo4j 4.0.3 Community Edition
-2. TigerGraph 2.1.4 Developer Edition
+1. MondoDB
+2. Neo4j 4.0.3 Community Edition
+3. TigerGraph 2.1.4 Developer Edition
 
 Se evaluarán los resultados obtenidos en una base de datos NoSQL, MongoDB. Y luego se compararán los resultados con bases de datos orientadas a grafos. La base de datos orientada a grafos más popular hoy en día es Neo4j, clasificada como #1 por DB-engine. 
 
