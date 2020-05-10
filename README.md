@@ -32,6 +32,19 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 
 # Configuración del ambiente de pruebas
 
+## Hardware
+
+Todas las pruebas fueron realizadas en una computadora personal con las siguientes caracterísitcas:
+
+Sistema Operativo | CPU | Memoria | Espacio en Disco | Tipo de Volumen
+--- | --- | --- | --- |--- 
+Windows 10 | 301 | 283 | 290 | 286 
+
+## Software
+
+1. Neo4j 4.0.3 Community Edition
+2. TigerGraph 2.1.4 Developer Edition
+
 Se evaluarán los resultados obtenidos en una base de datos NoSQL, MongoDB. Y luego se compararán los resultados con bases de datos orientadas a grafos. La base de datos orientada a grafos más popular hoy en día es Neo4j, clasificada como #1 por DB-engine. 
 
 Evaluaremos también TigerGraph, que afirma ser la plataforma gráfica más rápida y escalable, después de lanzar su edición gratuita para desarrolladores de aplicaiones para combatir el COVID-19 [5], recientemente publicó sus resultados de referencia en Amazone Neptune. TigerGraph supera a estas bases de datos de grafos por un amplio margen en todas las pruebas de referencia. Además, TigerGraph demuestra un uso de almacenamiento más eficiente, reduciendo el tamaño de datos original en lugar de expandirlo, como es el caso de las otras bases de datos.
