@@ -16,9 +16,12 @@ Al día de hoy no existen bases de datos de "contact tracing" o seguimiento de c
 # Set de datos elegido: Friendster
 
 Friendster [4] era una red social que permitía a los usuarios conectarse con sus amigos. El elemento central del sitio era la 'lista de amigos', que mostraba los contactos del usuario. Este conjunto de datos contiene las conexiones entre todos los usuarios de Friendster.
+La red Friendster contiene usuarios conectados entre sí a través relaciones de amistad. 
 
 Cantidad de usuarios o nodos: ~100 millones
-Cantidad de contactos o conexiones: 2.586.147.869
+Cantidad de contactos o conexiones: ~2.500 millones
+
+El tamaño del conjunto de datos es de 22.8 GB descomprimido -comprimido 10GB-.
 
 Descargar desde: https://archive.org/download/friendster-dataset-201107
 
@@ -50,9 +53,17 @@ Se evaluarán los resultados obtenidos en una base de datos NoSQL, MongoDB. Y lu
 
 Evaluaremos también TigerGraph, que afirma ser la plataforma gráfica más rápida y escalable, después de lanzar su edición gratuita para desarrolladores de aplicaiones para combatir el COVID-19 [5], recientemente publicó sus resultados de referencia en Amazone Neptune. TigerGraph supera a estas bases de datos de grafos por un amplio margen en todas las pruebas de referencia. Además, TigerGraph demuestra un uso de almacenamiento más eficiente, reduciendo el tamaño de datos original en lugar de expandirlo, como es el caso de las otras bases de datos.
 
-# Neo4j
+# Descripción de pruebas y resultados
 
 ## Carga de datos
+
+Los métodos de carga utilizados son los siguientes:
+
+### MongoDB
+
+Correr Jupyter carga_friendster_mongodb.ipynb
+
+### Neo4j
 
 1 - Iniciar el servicio de neo4j
 
@@ -111,6 +122,9 @@ Se puede configurar desde el archivo config (/etc/neo4j/neo4j.conf). Hay que com
 ```
 MATCH (n) RETURN n LIMIT 25
 ```
+
+### TigerGraph
+
 
 # Referencias
 - [1] "Sistema de apoyo a la detección y monitoreo inteligente de personas con COVID-19" - https://lsia.github.io/COVID-19/
