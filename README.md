@@ -22,11 +22,11 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 
 # Método de comparación entre tecnología de base de datos
 
-1 - Tiempo de carga del set de datos
-2 - Espacio de almacenamiento
-3 - Tiempo en devolver todos los contactos directos con un infectado
-4 - Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
-4 - Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
+1. Tiempo de carga del set de datos
+2. Espacio de almacenamiento
+3. Tiempo en devolver todos los contactos directos con un infectado
+4. Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
+5. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
 
 Se evaluarán los resultados obtenidos en una base de datos NoSQL, MongoDB. Y luego se compararán los resultados con bases de datos orientadas a grafos. La base de datos orientada a grafos más popular hoy en día es Neo4j, clasificada como #1 por DB-engine. 
 
