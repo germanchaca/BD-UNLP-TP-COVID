@@ -1,4 +1,4 @@
-Trabajo práctico final de la materia "Captura y Almacenamiento de la Información". 
+Trabajo práctico final de la materia "Captura y Almacenamiento de la Información", Posgrado UNLP, Marzo 2020
 - Alumno: Germán Concilio. 
 - Profesor: Bazzocco Javier
 
