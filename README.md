@@ -84,7 +84,7 @@ Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000..
 *OJO:* Desde la UI tuve problema para poder levantar el archivo desde cualquier carpeta  y tuve que copiarlo en 
 
 ```
-\import
+/var/lib/neo4j/import
 ```
 Se puede configurar desde el archivo config (/etc/neo4j/neo4j.conf). Hay que comentar la linea 'dbms.directories.import=import' y sacarle el comentario a la linea 'dbms.security.allow_csv_import_from_file_urls=true' para que permita importar desde cualquier lugar.
 
