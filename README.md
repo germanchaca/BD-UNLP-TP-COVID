@@ -1,4 +1,6 @@
-Trabajo práctico final de la materia "Captura y Almacenamiento de la Información"
+Trabajo práctico final de la materia "Captura y Almacenamiento de la Información". 
+- Alumno: Germán Concilio. 
+- Profesor: Bazzocco Javier
 
 # Introducción
 En el proyecto "Sistema de apoyo a la detección y monitoreo inteligente de personas con COVID-19" [1] del Laboratorio de Sistemas de Información Avanzados (LSIA) de la Facultad de Ingeniería de la Universidad de Buenos Aires, se desea explotar la información almacenada. 
