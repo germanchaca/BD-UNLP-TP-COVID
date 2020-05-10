@@ -106,7 +106,6 @@ UNWIND split(id2,",") as id
 WITH distinct id
 MERGE (u2:User {id:id})
 CREATE (u1)-[:FRIEND_OF]->(u2);
-;
 ```
 
 Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000... (Mint 19, Neo4j 4.0.3)
