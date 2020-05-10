@@ -65,31 +65,14 @@ Correr Jupyter carga_friendster_mongodb.ipynb
 
 ### Neo4j
 
-1 - Iniciar el servicio de neo4j
+1 - Iniciar el servicio de neo4. 
 
-```
-sudo neo4j start
-```
 
-*OJO*: Si pincha hay que revisar el log
-
-```
-cat /var/log/neo4j/neo4j.log
-```
-
-En mi caso pasaba que los puertos que usa por default estaban siendo usados y tuve que cambiarlos desde
-
-```
-/etc/neo4j/neo4j.conf
-```
-
-2 - En una de las ultimas lineas dice en que puerto levanta la UI:
+2 - Ingresar al puerto donde levanta la UI:
 
 ```
 Started neo4j (pid 13595). It is available at http://localhost:5474/
 ```
-
-Abrir esa direccion
 
 4 - En la IU ir a "Database" (en el menu de la izq)
 
@@ -99,7 +82,12 @@ Abrir esa direccion
 create index on :User(id);
 ```
 
-6 - Levantar el archivo descargado (toma 1-2 min)
+6 - Levantar el archivo descargado
+
+Para eso debemos combinar los .txt porque originalmente viene partido
+```
+C:\> copy in*.txt Combined.txt
+```
 
 ```
 :auto USING PERIODIC COMMIT 1000
