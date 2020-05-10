@@ -30,6 +30,8 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 4. Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
 5. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
 
+# Configuración del ambiente de pruebas
+
 Se evaluarán los resultados obtenidos en una base de datos NoSQL, MongoDB. Y luego se compararán los resultados con bases de datos orientadas a grafos. La base de datos orientada a grafos más popular hoy en día es Neo4j, clasificada como #1 por DB-engine. 
 
 Evaluaremos también TigerGraph, que afirma ser la plataforma gráfica más rápida y escalable, después de lanzar su edición gratuita para desarrolladores de aplicaiones para combatir el COVID-19 [5], recientemente publicó sus resultados de referencia en Amazone Neptune. TigerGraph supera a estas bases de datos de grafos por un amplio margen en todas las pruebas de referencia. Además, TigerGraph demuestra un uso de almacenamiento más eficiente, reduciendo el tamaño de datos original en lugar de expandirlo, como es el caso de las otras bases de datos.
