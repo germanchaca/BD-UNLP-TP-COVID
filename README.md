@@ -84,37 +84,49 @@ create index on :User(id);
 
 6 - Levantar el set de datos
 
-Para eso debemos combinar los .txt porque originalmente viene partido
-```
-C:\> copy in*.txt Combined.txt
-```
+Para eso debemos combinar los .txt porque originalmente viene partido.
+Para ello correr el jupyter notebook Combine files.ipynb
 
-*OJO:* Desde la UI tuve problema para poder levantar el archivo desde cualquier carpeta  y tuve que copiarlo en 
+*NOTA:* Desde la UI tuve problema para poder levantar el archivo desde cualquier carpeta  y tuve que copiarlo en 
 
 ```
 /var/lib/neo4j/import
 ```
 Se puede configurar desde el archivo config (/etc/neo4j/neo4j.conf). Hay que comentar la linea 'dbms.directories.import=import' y sacarle el comentario a la linea 'dbms.security.allow_csv_import_from_file_urls=true' para que permita importar desde cualquier lugar.
 
+Modificar las siguientes líneas
 ```
-:auto USING PERIODIC COMMIT 1000
-LOAD CSV FROM "file:///friends-000______.txt" as line FIELDTERMINATOR ":"
-MERGE (u1:User {id:line[0]})
+dbms.memory.heap.initial_size=1G  
+dbms.memory.heap.max_size=4G 
+dbms.memory.pagecache.size=1512m
+
+```
+
+7 - Para ejecutar esto sin error se debe agregar :auto USING PERIODIC COMMIT 100000... (Mint 19, Neo4j 4.0.3)
+
+```
+:auto USING PERIODIC COMMIT 100000
+LOAD CSV FROM "file:///result.csv" as line FIELDTERMINATOR ":"
+MERGE (u1:User {id:line[0]});
+
+:auto USING PERIODIC COMMIT 100000
+LOAD CSV FROM "file:///result.csv" as line FIELDTERMINATOR ":"
 WITH line[1] as id2
-WHERE id2 <> '' AND id2 <> 'private' AND id2 <> 'notfound'
 UNWIND split(id2,",") as id
 WITH distinct id
-MERGE (u2:User {id:id})
-CREATE (u1)-[:FRIEND_OF]->(u2);
-```
+MERGE (:User {id:id});
 
-Para ejecutar esto sin error tuve que agregar :auto USING PERIODIC COMMIT 1000... (Mint 19, Neo4j 4.0.3)
-
-7 - Ver que se cargaron los id ok
-
+:auto USING PERIODIC COMMIT 100000
+LOAD CSV FROM "file:///result.csv" as line FIELDTERMINATOR ":"
+WITH line[0] as id1, line[1] as id2
+MATCH (u1:User {id:id1})
+UNWIND split(id2,",") as id 
+MATCH (u2:User {id:id})
+CREATE (u1)-[:FRIEND_OF]-(u2);
 ```
-MATCH (n) RETURN n LIMIT 25
-```
+*NOTA:* En la computadora personal sólo se pudo cargar el archivo friends-000______.txt 
+Los experimentos se hicieron tomando estos ~3 millones de nodos porque la RAM no alcanzó para cargar todo. 
+
 
 ### TigerGraph
 
