@@ -27,11 +27,10 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 
 # Método de comparación entre tecnología de base de datos
 
-1. Tiempo de carga del set de datos
-2. Espacio de almacenamiento
-3. Tiempo en devolver todos los contactos directos con un infectado
-4. Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
-5. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
+1. Espacio de almacenamiento
+2. Tiempo en devolver todos los contactos directos con un infectado
+3. Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
+4. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
 
 # Configuración del ambiente de pruebas
 
