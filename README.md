@@ -125,7 +125,6 @@ Los experimentos se hicieron tomando estos ~3 millones de nodos porque la RAM no
 
 ### TigerGraph
 
-TigerGraph admite la carga masiva en su versión online.
 Antes de cargar los datos, se debe especificar un esquema gráfico, que para el caso del conjunto de datos Friendster solo requería definir un tipo de nodo con propiedad de id y un tipo de enlace.
 El trabajo de carga se escribe utilizando el lenguaje GSQL y no requirió ninguna preparación adicional del conjunto de datos original.
 Los datos se indexan durante la carga automáticamente.
@@ -157,9 +156,118 @@ WHERE u.id = "user_id"
 RETURN u, u1
 ```
 
-## Resultados
+### TigerGraph
 
+Y el GSQL (TigerGraph) equivalente de la consulta: 
+```
+CREATE QUERY kstep(VERTEX< User > start_node, INT k) for GRAPH friendster {
+            int i = 0;
+            Result = {start_node};
+            Start = {start_node};
 
+            WHILE (i < k) DO
+                Start = SELECT v
+                        FROM Start:u - (Friendship:e)->:v;
+                Result = Result UNION Start;
+                i = i + 1;
+            END;
+ 
+            PRINT Result.size();
+}
+```
+## Algunos ejemplos de resultados y tiempos de respuesta
+
+### MongoDB
+User id: 745822 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 144 | 642
+contactos indirectos de 1 salto | 8690 | 2060
+contactos indirectos de 2 saltos | 0 | N/A (timeout)
+
+User id: 101 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 141 | 595
+contactos indirectos de 1 salto | 8771 | 1930
+contactos indirectos de 2 saltos | 0 | N/A (timeout)
+
+User id: 202 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 15 | 610
+contactos indirectos de 1 salto | 264 | 1960
+contactos indirectos de 2 saltos | 0 | N/A (timeout)
+
+### Neo4j
+
+User id: 745822 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 144 | 2
+contactos indirectos de 1 salto | 8690 | 44
+contactos indirectos de 2 saltos | 857949 | 14030 
+contactos indirectos de 3 saltos | 0 | N/A (timeout)
+
+User id: 101 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 141 | 4
+contactos indirectos de 1 salto | 8771 | 96
+contactos indirectos de 2 saltos | 527304 | 7561
+contactos indirectos de 3 saltos | 0 | N/A (timeout)
+
+User id: 202 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 15 | 1
+contactos indirectos de 1 salto | 264 | 3
+contactos indirectos de 2 saltos | 8107 | 79
+contactos indirectos de 3 saltos | 0 | N/A (timeout)
+
+### TigerGraph
+
+User id: 745822 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 144 | 810
+contactos indirectos de 1 salto | 8690 | 1500
+contactos indirectos de 2 saltos | 857949 | 1700 
+
+User id: 101 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 141 | 300
+contactos indirectos de 1 salto | 8771 | 350
+contactos indirectos de 2 saltos | 527304 | 2350
+
+User id: 202 | #Relaciones | Tiempo (ms)
+--- | --- | --- 
+contactos directos | 15 | 580
+contactos indirectos de 1 salto | 264 | 960
+contactos indirectos de 2 saltos | 8107 | 1550
+
+Para algunos usuarios, es posible realizar más de tres saltos. La limitante es el tamaño del json resultante, el cual tiene que ser menor a 32MB. Si se aplican los filtros geoespaciales propios del dominio (cantidad mínima de tiempo en contacto y proximidad necesaria) el json no debería devolver tantos resultados con lo cual esto no representa un problema.
+
+## Resultados finales
+
+### Espacio de almacenamiento utilizado
+Dataset	Original | MongoDB | Neo4j | TigerGraph
+--- | --- | --- | --- 
+Friendster	| 104 MB | 104 MB | 4.51 GB | 200 MB
+
+Avg ms(10 usuarios al azar) | MongoDB | Neo4j | TigerGraph
+--- | --- | --- | --- 
+contactos directos | 610 ms | 2 ms | 560ms
+contactos indirectos de 1 salto | 2 s | 23 ms | 1.2 s
+contactos indirectos de 2 saltos | N/A (timeout) | 4.6 s | 2.2 s
+contactos indirectos de 3 saltos | N/A (timeout) | N/A (9/10 timeout) | 53.9 s
+
+## Conclusiones
+
+### Tiempo de carga
+
+MongoDB es el más fácil de cargar por ser un NoSQL.
+
+El tiempo de carga de TigerGraph no es sustancialmente mejor que el tiempo de Neo4j. Sin embargo, TigerGraph tiene una ventaja sobre Neo4j, es decir, no requiere el procesamiento previo de los datos antes de la carga (por ejemplo, preparación de archivos de nodo). Además, dado que Neo4j no indexa automáticamente los datos durante la carga, esto implica que se requiere tiempo adicional para realizar la indexación antes de que los datos estén listos para usarse. 
+
+### Espacio de almacenamiento
+
+### Performance de las consultas
+
+### Elección final
 
 
 # Referencias
