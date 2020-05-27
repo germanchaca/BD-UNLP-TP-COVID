@@ -54,12 +54,12 @@ Evaluaremos también TigerGraph, que afirma ser la plataforma gráfica más ráp
 
 # Descripción de pruebas y resultados
 
-## MongoDB
+## Carga de datos
+### MongoDB
 
 Correr Jupyter carga_friendster_mongodb.ipynb
 
-## Neo4j
-### Carga de datos
+### Neo4j
 
 1 - Iniciar el servicio de neo4. 
 
@@ -123,12 +123,41 @@ CREATE (u1)-[:FRIEND_OF]-(u2);
 *NOTA:* En la computadora personal sólo se pudo cargar el archivo friends-000______.txt 
 Los experimentos se hicieron tomando estos ~3 millones de nodos porque la RAM no alcanzó para cargar todo. 
 
-### Configuración de las consultas realizadas
+### TigerGraph
+
+TigerGraph admite la carga masiva en su versión online.
+Antes de cargar los datos, se debe especificar un esquema gráfico, que para el caso del conjunto de datos Friendster solo requería definir un tipo de nodo con propiedad de id y un tipo de enlace.
+El trabajo de carga se escribe utilizando el lenguaje GSQL y no requirió ninguna preparación adicional del conjunto de datos original.
+Los datos se indexan durante la carga automáticamente.
+
+Se parseó el archivo friends-000______.txt. Se obtiene una relación por línea con el formato ID1, ID2.
+En el procesamiento se eliminaron los nodos vacíos, “notfound” y “private”.
+
+```
+Se cargaron 13070406 líneas en 1m 14s.
+```
+
+## Configuración de las consultas realizadas
 Se realizaron consultas con 10 usuarios seleccionados al azar, y se vio que los tiempos tuvieron bastante varianza dentro de cada salto debido a las diferencias entre la cantidad de relaciones de cada uno. Dicha variación se fue incrementando a medida que se aumentaba la cantidad de saltos.
 
-### Resultados
+### Neo4j
+```
+MATCH (u:User)-[:FRIEND_OF]->(u1:User)
+WHERE u.id = "user_id"
+RETURN u, u1
 
-### TigerGraph
+MATCH (u:User)-[:FRIEND_OF*2]->(u1:User)
+WHERE u.id = "user_id"
+RETURN u, u1
+
+MATCH (u:User)-[:FRIEND_OF*3]->(u1:User)
+WHERE u.id = "user_id"
+RETURN u, u1
+```
+
+## Resultados
+
+
 
 
 # Referencias
