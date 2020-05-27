@@ -35,6 +35,7 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 2. Tiempo en devolver todos los contactos directos de un usuario
 3. Tiempo en devolver todos los contactos indirectos de 1 salto de un usuario
 4. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos de un usuario
+4. Tiempo en devolver todos los contactos indirectos de hasta 3 saltos de un usuario
 
 # Configuración del ambiente de pruebas
 
@@ -281,11 +282,15 @@ Se muestra que TigerGraph utiliza una compresión eficiente durante la ingestió
 
 ### Rendimiento de las consultas
 
-TigerGraph supera ampliamente a Neo4j en las consultas de vecindario de k pasos, terminando todas las consultas dentro del tiempo de espera establecido. Neo4j también puede completar consultas de 1 y 3 pasos dentro del tiempo de espera establecido, aunque muy por detrás de TigerGraph. Para el vecindario de 6 pasos, las consultas de 10 de 10 caducaron, es decir, no se pudieron completar dentro del tiempo de espera de 9000 segundos. Dado que solo se completó una consulta, no es razonable proporcionar su tiempo de ejecución como promedio, ya que no refleja el valor promedio en absoluto. Esta consulta con el nodo de inicio 5,832,221 se completó en 23,221 segundos, en comparación, la consulta de TigerGraph con este nodo de inicio se completó en solo 0,517 segundos. Además, el nodo de inicio 5,832,221 tiene la vecindad más pequeña de 6 pasos entre otros nodos de inicio, lo que explica por qué esta fue la única consulta que pudo completarse en menos de 9000 segundos. Claramente, TigerGraph también es más rápido que Neo4j en consultas de vecindario de 6 pasos.
+MongoDB tiene una performance aceptable si sólo se necesitan los contactos directos o hasta 1 salto. Lo cual lo deja muy por debajo de las necesidades del trabajo aquí tratado. No sería adecuado adoptar este tipo de base de datos para un sistema de seguimiento epidemológico.
 
+TigerGraph supera ampliamente a Neo4j en las consultas de contactos indirectos 3 o más saltos, terminando todas las consultas dentro del tiempo de espera establecido. 
+
+Neo4j también puede completar consultas de 1 y 2 saltos dentro del tiempo de espera establecido, de hecho aquí tiene un tiempo de respuesta menor al de TigerGraph. Para consultas de más de 2 saltos, las consultas de 9 de 10 caducaron, es decir, no se pudieron completar dentro del tiempo de espera de 9000 segundos. Dado que solo se completó una consulta, no es razonable proporcionar su tiempo de ejecución como promedio, ya que no refleja el valor promedio en absoluto. 
 
 ### Elección final
 
+Se recomienta utilizar TigerGraph como tecnología de bases de datos del sistema de seguimiento epidemológico porque permite hacer consultas más complejas contempladas en el esquema de uso de la aplicación propuesta en un tiempo de respuesta adecuado, además de ser más efectivo en materia de almacenamiento de datos.
 
 # Referencias
 - [1] "Sistema de apoyo a la detección y monitoreo inteligente de personas con COVID-19" - https://lsia.github.io/COVID-19/
