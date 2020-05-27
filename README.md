@@ -139,7 +139,10 @@ Se cargaron 13070406 líneas en 1m 14s.
 ![TigerGraph carga de datos](https://github.com/germanchaca/BD-UNLP-TP-COVID/blob/master/img/tiger2.png?raw=true)
 
 ## Configuración de las consultas realizadas
-Se realizaron consultas con 10 usuarios seleccionados al azar, y se vio que los tiempos tuvieron bastante varianza dentro de cada salto debido a las diferencias entre la cantidad de relaciones de cada uno. Dicha variación se fue incrementando a medida que se aumentaba la cantidad de saltos.
+
+Todas las pruebas de rendimiento de consultas utilizan el mismo archivo con 10 nodos de inicio seleccionados al azar, y el tiempo promedio se mide en 10 ejecuciones de consultas para cada una de las pruebas. El tiempo de espera de la consulta para contactos directos se estableció en 180 segundos, y para las consultas de 2 saltos y 3 pasos se usó el tiempo de espera de 9000 segundos (2.5 horas), es decir, si después de la consulta de tiempo de espera no se completó, entonces se termina y el cálculo continúa a la siguiente consulta.
+
+Se vio que los tiempos tuvieron bastante varianza dentro de cada salto debido a las diferencias entre la cantidad de relaciones de cada uno. Dicha variación se fue incrementando a medida que se aumentaba la cantidad de saltos.
 
 ### Neo4j
 ```
@@ -244,9 +247,14 @@ Para algunos usuarios, es posible realizar más de tres saltos. La limitante es 
 ## Resultados finales
 
 ### Espacio de almacenamiento utilizado
+
+Aquí se comparan los tamaños de almacenamiento de los datos cargados con el tamaño del conjunto de datos original. El tamaño de almacenamiento de Neo4j se midió después de que se creó el índice en los ID de nodo.
+
 Dataset	Original | MongoDB | Neo4j | TigerGraph
 --- | --- | --- | --- 
 Friendster	| 104 MB | 104 MB | 4.51 GB | 200 MB
+
+### Rendimiento de las consultas
 
 Avg ms(10 usuarios al azar) | MongoDB | Neo4j | TigerGraph
 --- | --- | --- | --- 
@@ -265,7 +273,12 @@ El tiempo de carga de TigerGraph no es sustancialmente mejor que el tiempo de Ne
 
 ### Espacio de almacenamiento
 
-### Performance de las consultas
+Se muestra que TigerGraph utiliza una compresión eficiente durante la ingestión de datos, lo que reduce el tamaño del gráfico cargado en la base de datos en comparación con su tamaño original.
+
+### Rendimiento de las consultas
+
+TigerGraph supera ampliamente a Neo4j en las consultas de vecindario de k pasos, terminando todas las consultas dentro del tiempo de espera establecido. Neo4j también puede completar consultas de 1 y 3 pasos dentro del tiempo de espera establecido, aunque muy por detrás de TigerGraph. Para el vecindario de 6 pasos, las consultas de 10 de 10 caducaron, es decir, no se pudieron completar dentro del tiempo de espera de 9000 segundos. Dado que solo se completó una consulta, no es razonable proporcionar su tiempo de ejecución como promedio, ya que no refleja el valor promedio en absoluto. Esta consulta con el nodo de inicio 5,832,221 se completó en 23,221 segundos, en comparación, la consulta de TigerGraph con este nodo de inicio se completó en solo 0,517 segundos. Además, el nodo de inicio 5,832,221 tiene la vecindad más pequeña de 6 pasos entre otros nodos de inicio, lo que explica por qué esta fue la única consulta que pudo completarse en menos de 9000 segundos. Claramente, TigerGraph también es más rápido que Neo4j en consultas de vecindario de 6 pasos.
+
 
 ### Elección final
 
