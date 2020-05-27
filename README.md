@@ -28,9 +28,9 @@ Descargar desde: https://archive.org/download/friendster-dataset-201107
 # Método de comparación entre tecnología de base de datos
 
 1. Espacio de almacenamiento
-2. Tiempo en devolver todos los contactos directos con un infectado
-3. Tiempo en devolver todos los contactos indirectos de 1 salto con 1 enfectado
-4. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos con 1 enfectado
+2. Tiempo en devolver todos los contactos directos de un usuario
+3. Tiempo en devolver todos los contactos indirectos de 1 salto de un usuario
+4. Tiempo en devolver todos los contactos indirectos de hasta 2 saltos de un usuario
 
 # Configuración del ambiente de pruebas
 
@@ -54,15 +54,12 @@ Evaluaremos también TigerGraph, que afirma ser la plataforma gráfica más ráp
 
 # Descripción de pruebas y resultados
 
-## Carga de datos
-
-Los métodos de carga utilizados son los siguientes:
-
-### MongoDB
+## MongoDB
 
 Correr Jupyter carga_friendster_mongodb.ipynb
 
-### Neo4j
+## Neo4j
+### Carga de datos
 
 1 - Iniciar el servicio de neo4. 
 
@@ -126,6 +123,10 @@ CREATE (u1)-[:FRIEND_OF]-(u2);
 *NOTA:* En la computadora personal sólo se pudo cargar el archivo friends-000______.txt 
 Los experimentos se hicieron tomando estos ~3 millones de nodos porque la RAM no alcanzó para cargar todo. 
 
+### Configuración de las consultas realizadas
+Se realizaron consultas con 10 usuarios seleccionados al azar, y se vio que los tiempos tuvieron bastante varianza dentro de cada salto debido a las diferencias entre la cantidad de relaciones de cada uno. Dicha variación se fue incrementando a medida que se aumentaba la cantidad de saltos.
+
+### Resultados
 
 ### TigerGraph
 
