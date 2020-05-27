@@ -133,9 +133,11 @@ Los datos se indexan durante la carga automáticamente.
 Se parseó el archivo friends-000______.txt. Se obtiene una relación por línea con el formato ID1, ID2.
 En el procesamiento se eliminaron los nodos vacíos, “notfound” y “private”.
 
+![TigerGraph carga de datos](https://github.com/germanchaca/BD-UNLP-TP-COVID/blob/master/img/tiger.png?raw=true)
 ```
 Se cargaron 13070406 líneas en 1m 14s.
 ```
+![TigerGraph carga de datos](https://github.com/germanchaca/BD-UNLP-TP-COVID/blob/master/img/tiger2.png?raw=true)
 
 ## Configuración de las consultas realizadas
 Se realizaron consultas con 10 usuarios seleccionados al azar, y se vio que los tiempos tuvieron bastante varianza dentro de cada salto debido a las diferencias entre la cantidad de relaciones de cada uno. Dicha variación se fue incrementando a medida que se aumentaba la cantidad de saltos.
